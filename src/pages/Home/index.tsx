@@ -25,20 +25,25 @@ interface Cycle {
 
 export function Home() {
   const [cycles, setCycles] = useState<Cycle[]>([])
+  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     defaultValues: { task: '', minutesAmount: 0 },
   })
 
   function handleCreateNewCycle({ task, minutesAmount }: NewCycleFormData) {
+    const id = String(new Date().getTime())
     const newCycle: Cycle = {
-      id: String(new Date().getTime()),
+      id,
       task,
       minutesAmount,
     }
 
     setCycles((state) => [newCycle, ...state])
+    setActiveCycleId(id)
     reset()
   }
+
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   const task = watch('task')
   const minutesAmount = watch('minutesAmount')
