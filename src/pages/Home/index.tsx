@@ -18,10 +18,8 @@ interface NewCycleFormData {
   minutesAmount: number
 }
 
-interface Cycle {
+interface Cycle extends NewCycleFormData {
   id: string
-  task: string
-  minutesAmount: number
   startDate: Date
 }
 
