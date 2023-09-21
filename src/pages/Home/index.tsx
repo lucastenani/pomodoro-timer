@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Play } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
 
@@ -16,13 +17,26 @@ interface NewCycleFormData {
   minutesAmount: number
 }
 
+interface Cycle {
+  id: string
+  task: string
+  minutesAmount: number
+}
+
 export function Home() {
+  const [cycles, setCycles] = useState<Cycle[]>([])
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     defaultValues: { task: '', minutesAmount: 0 },
   })
 
-  function handleCreateNewCycle(data: NewCycleFormData) {
-    console.log(data)
+  function handleCreateNewCycle({ task, minutesAmount }: NewCycleFormData) {
+    const newCycle: Cycle = {
+      id: String(new Date().getTime()),
+      task,
+      minutesAmount,
+    }
+
+    setCycles((state) => [newCycle, ...state])
     reset()
   }
 
