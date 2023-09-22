@@ -29,7 +29,7 @@ export function History() {
               <td>25 minutes</td>
               <td>About 2 months ago</td>
               <td>
-                <Status statusColor="red">Suspended</Status>
+                <Status statusColor="red">Interrupted</Status>
               </td>
             </tr>
             <tr>

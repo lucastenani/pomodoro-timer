@@ -22,6 +22,7 @@ interface NewCycleFormData {
 interface Cycle extends NewCycleFormData {
   id: string
   startDate: Date
+  interruptedDate?: Date
 }
 
 export function Home() {
@@ -66,6 +67,15 @@ export function Home() {
   }
 
   function handleInterruptCycle() {
+    setCycles(
+      cycles.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
     setActiveCycleId(null)
   }
 
