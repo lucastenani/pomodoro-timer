@@ -58,6 +58,7 @@ export function Home() {
             }),
           )
           setActiveCycleId(null)
+          clearInterval(interval)
         } else {
           setAmountSecondsPassed(secondsDiff)
         }
