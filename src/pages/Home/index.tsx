@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Play } from '@phosphor-icons/react'
+import { HandPalm, Play } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
 import { differenceInSeconds } from 'date-fns'
 
@@ -7,6 +7,7 @@ import {
   CountdownContainer,
   FormContainer,
   HomeContainer,
+  InterruptCountdownButton,
   MinutesAmountInput,
   Separator,
   StartCountdownButton,
@@ -64,6 +65,10 @@ export function Home() {
     reset()
   }
 
+  function handleInterruptCycle() {
+    setActiveCycleId(null)
+  }
+
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
   const minutesAmount = Math.floor(currentSeconds / 60)
@@ -72,9 +77,9 @@ export function Home() {
   const seconds = String(secondsAmount).padStart(2, '0')
 
   useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes}:${seconds} - ${activeCycle?.task}`
-    }
+    document.title = activeCycle
+      ? `${minutes}:${seconds} - ${activeCycle?.task}`
+      : 'Pomodoro Timer'
   }, [minutes, seconds, activeCycle])
 
   const task = watch('task')
@@ -84,38 +89,42 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <FormContainer>
-          <label htmlFor="task">I will work on</label>
+        {activeCycle ? (
+          <h1>{activeCycle.task}</h1>
+        ) : (
+          <FormContainer>
+            <label htmlFor="task">I will work on</label>
 
-          <TaskInput
-            type="text"
-            id="task"
-            placeholder="Give a name to your project."
-            list="task-suggestions"
-            {...register('task')}
-          />
+            <TaskInput
+              type="text"
+              id="task"
+              placeholder="Give a name to your project."
+              list="task-suggestions"
+              {...register('task')}
+            />
 
-          <datalist id="task-suggestions">
-            <option value="Project 1" />
-            <option value="Project 2" />
-            <option value="Project 3" />
-            <option value="Project 4" />
-          </datalist>
+            <datalist id="task-suggestions">
+              <option value="Project 1" />
+              <option value="Project 2" />
+              <option value="Project 3" />
+              <option value="Project 4" />
+            </datalist>
 
-          <label htmlFor="minutesAmount">for</label>
+            <label htmlFor="minutesAmount">for</label>
 
-          <MinutesAmountInput
-            type="number"
-            id="minutesAmount"
-            placeholder="00"
-            step={5}
-            min={5}
-            max={60}
-            {...register('minutesAmount', { valueAsNumber: true })}
-          />
+            <MinutesAmountInput
+              type="number"
+              id="minutesAmount"
+              placeholder="00"
+              step={5}
+              min={5}
+              max={60}
+              {...register('minutesAmount', { valueAsNumber: true })}
+            />
 
-          <span>minutes.</span>
-        </FormContainer>
+            <span>minutes.</span>
+          </FormContainer>
+        )}
 
         <CountdownContainer>
           <span>{minutes[0]}</span>
@@ -125,14 +134,23 @@ export function Home() {
           <span>{seconds[1]}</span>
         </CountdownContainer>
 
-        <StartCountdownButton
-          type="submit"
-          title="Fill in the name and duration before starting."
-          disabled={isSubmitDisabled}
-        >
-          <Play size={24} />
-          Start
-        </StartCountdownButton>
+        {activeCycle ? (
+          <InterruptCountdownButton
+            type="button"
+            title="Interrupt the active Task."
+            onClick={handleInterruptCycle}
+          >
+            <HandPalm size={24} /> Interrupt
+          </InterruptCountdownButton>
+        ) : (
+          <StartCountdownButton
+            type="submit"
+            title="Fill in the name and duration before starting."
+            disabled={isSubmitDisabled}
+          >
+            <Play size={24} /> Start
+          </StartCountdownButton>
+        )}
       </form>
     </HomeContainer>
   )
