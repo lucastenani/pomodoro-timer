@@ -19,7 +19,12 @@ export function Home() {
     defaultValues: { task: '', minutesAmount: 0 },
   })
 
-  const { handleSubmit, watch } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
+
+  function handleCreateNewCycle(data: CreateCycleData) {
+    createNewCycle(data)
+    reset()
+  }
 
   const task = watch('task')
   const minutesAmountInput = watch('minutesAmount')
@@ -27,14 +32,10 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(createNewCycle)}>
-        {activeCycle ? (
-          <h1>{activeCycle.task}</h1>
-        ) : (
-          <FormProvider {...newCycleForm}>
-            <NewCycleForm />
-          </FormProvider>
-        )}
+      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
+        <FormProvider {...newCycleForm}>
+          <NewCycleForm />
+        </FormProvider>
 
         <Countdown />
 
