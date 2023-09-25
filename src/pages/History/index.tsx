@@ -18,6 +18,7 @@ export function History() {
         <button
           onClick={handleCleanCyclesHistory}
           disabled={cycles.length === 0}
+          title="Clear cycle history"
         >
           Clear cycle history
         </button>
