@@ -22,7 +22,7 @@ export function cyclesReducer(state: CyclesState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_NEW_CYCLE:
       return produce(state, (draft) => {
-        draft.cycles.push(action.payload.newCycle)
+        draft.cycles.unshift(action.payload.newCycle)
         draft.activeCycleId = action.payload.newCycle.id
       })
 
@@ -47,6 +47,12 @@ export function cyclesReducer(state: CyclesState, action: any) {
         draft.cycles[currentCycleIndex].finishedDate = new Date()
       })
     }
+
+    case ActionTypes.CLEAN_CYCLES_HISTORY:
+      return produce(state, (draft) => {
+        draft.cycles = []
+        draft.activeCycleId = null
+      })
 
     default:
       return state

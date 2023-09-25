@@ -2,14 +2,26 @@ import { useContext } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { CyclesContext } from '../../contexts/CyclesContext'
 
-import { HistoryContainer, HistoryList, Status } from './styles'
+import { HistoryContainer, HistoryHeader, HistoryList, Status } from './styles'
 
 export function History() {
-  const { cycles } = useContext(CyclesContext)
+  const { cycles, cleanCyclesHistory } = useContext(CyclesContext)
+
+  function handleCleanCyclesHistory() {
+    cleanCyclesHistory()
+  }
 
   return (
     <HistoryContainer>
-      <h1>My history</h1>
+      <HistoryHeader>
+        <h1>My history</h1>
+        <button
+          onClick={handleCleanCyclesHistory}
+          disabled={cycles.length === 0}
+        >
+          Clear cycle history
+        </button>
+      </HistoryHeader>
 
       <HistoryList>
         <table>

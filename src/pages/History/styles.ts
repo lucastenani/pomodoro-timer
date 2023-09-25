@@ -12,6 +12,37 @@ export const HistoryContainer = styled.main`
     color: ${(props) => props.theme['gray-100']};
   }
 `
+export const HistoryHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    border: 0rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    cursor: pointer;
+    font-weight: bold;
+    background-color: ${(props) => props.theme['green-500']};
+    color: ${(props) => props.theme['gray-100']};
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background-color: ${(props) => props.theme['green-700']};
+    }
+  }
+`
 
 export const HistoryList = styled.div`
   flex: 1;
