@@ -4,6 +4,7 @@ import { CyclesContextProvider } from './contexts/CyclesContext'
 import { Router } from './Router'
 
 import { defaultTheme } from './styles/themes/default'
+import { lightTheme } from './styles/themes/light'
 import { GlobalStyle } from './styles/global'
 
 export function App() {

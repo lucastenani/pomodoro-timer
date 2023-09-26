@@ -29,7 +29,13 @@ export const baseButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   background-color: ${(props) => props.theme['green-500']};
-  color: ${(props) => props.theme['gray-100']};
+  color: ${(props) => {
+    if (props.theme.mode === 'lightTheme') {
+      return props.theme['gray-100']
+    } else {
+      return props.theme['gray-800']
+    }
+  }};
 `
 
 export const StartCountdownButton = styled(baseButton)`
