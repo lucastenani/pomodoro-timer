@@ -1,4 +1,5 @@
 export const lightTheme = {
+  title: 'light',
   white: '#FFF',
 
   'gray-100': '#29292E',
