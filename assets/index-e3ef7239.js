@@ -196,7 +196,7 @@ Error generating stack: `+o.message+`
   }
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 `,B8=Ae.div`
   display: flex;
