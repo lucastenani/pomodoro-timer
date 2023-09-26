@@ -1,9 +1,9 @@
 import { ReactNode, createContext, useState } from 'react'
+import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '../styles/themes/default'
 import { lightTheme } from '../styles/themes/light'
 
 interface SelectedThemeContextType {
-  selectedTheme: typeof defaultTheme
   toggleTheme: () => void
 }
 
@@ -22,13 +22,13 @@ export function SelectedThemeProvider({
 
   function toggleTheme() {
     setSelectedTheme(
-      selectedTheme.title === 'light' ? defaultTheme : lightTheme,
+      selectedTheme.title === 'default' ? lightTheme : defaultTheme,
     )
   }
 
   return (
-    <SelectedThemeContext.Provider value={{ selectedTheme, toggleTheme }}>
-      {children}
+    <SelectedThemeContext.Provider value={{ toggleTheme }}>
+      <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>
     </SelectedThemeContext.Provider>
   )
 }
