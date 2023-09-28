@@ -13,7 +13,7 @@ export const HistoryContainer = styled.main`
   }
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 `
 export const HistoryHeader = styled.div`
